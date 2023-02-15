@@ -62,3 +62,4 @@ mp3splt-gtk/build-aux
 mp3splt-gtk/mp3splt-gtk.desktop
 mp3splt-gtk/src/mp3splt-gtk
 
+**/configure~
