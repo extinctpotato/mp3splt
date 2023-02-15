@@ -1,4 +1,5 @@
 LIBMP3SPLT_DIR=libmp3splt
+LIBMP3SPLT_DIR_TARGET=$(LIBMP3SPLT_DIR)/target
 MP3SPLT_DIR=newmp3splt
 MP3SPLT_GTK_DIR=mp3splt-gtk
 
@@ -85,9 +86,14 @@ vim:
 	screen vim libmp3splt/src/*.{c,h} libmp3splt/plugins/*.{c,h} libmp3splt/include/libmp3splt/*.h newmp3splt/src/*.c mp3splt-gtk/src/*.{c,h}
 
 compile_all:
-	cd ${LIBMP3SPLT_DIR} && ./autogen.sh && ./configure && make clean && make
-	cd ${MP3SPLT_DIR} && ./autogen.sh && ./configure && make clean && make
-	cd ${MP3SPLT_GTK_DIR} && ./autogen.sh && ./configure && make clean && make
+	cd ${LIBMP3SPLT_DIR} && ./autogen.sh && ./configure --prefix=$(CURDIR)/${LIBMP3SPLT_DIR_TARGET} && make clean && make && make install
+	export PKG_CONFIG_PATH=$(CURDIR)/${LIBMP3SPLT_DIR_TARGET}/lib/pkgconfig/ && \
+		export LD_LIBRARY_PATH=$(CURDIR)/${LIBMP3SPLT_DIR_TARGET} && \
+		cd ${MP3SPLT_DIR} && ./autogen.sh && ./configure && make clean && make
+	export PKG_CONFIG_PATH=$(CURDIR)/${LIBMP3SPLT_DIR_TARGET}/lib/pkgconfig/ && \
+		export LD_LIBRARY_PATH=$(CURDIR)/${LIBMP3SPLT_DIR_TARGET} && \
+		cd ${MP3SPLT_GTK_DIR} && ./autogen.sh && \
+		./configure --disable-gnome --disable-mp3splttest --disable-audacious && make clean && make
 
 compile:
 	cd ${LIBMP3SPLT_DIR} && make
