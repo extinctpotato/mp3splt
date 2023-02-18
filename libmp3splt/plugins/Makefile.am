@@ -56,3 +56,7 @@ libsplt_flac_la_LDFLAGS = $(common_LDFLAGS) @FLAC_LIBS@
 
 endif
 
+plugin_LTLIBRARIES += libsplt_wav.la
+libsplt_wav_la_SOURCES = wav.c wav.h
+libsplt_wav_la_CPPFLAGS = $(common_CPPFLAGS)
+libsplt_wav_la_LDFLAGS = $(common_LDFLAGS)

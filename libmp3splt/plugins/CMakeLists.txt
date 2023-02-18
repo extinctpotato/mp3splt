@@ -81,3 +81,11 @@ find_package(Flac REQUIRED)
 include_directories(${FLAC_INCLUDE_DIR})
 target_link_libraries(splt_flac ${FLAC_LIBRARIES})
 
+set(WAV_PLUGIN_SOURCES
+	wav.c
+	wav.h
+)
+
+add_library(splt_wav SHARED ${WAV_PLUGIN_SOURCES} ${COMMON_PLUGIN_FILES})
+
+target_link_libraries(splt_wav -lm -lmp3splt)
