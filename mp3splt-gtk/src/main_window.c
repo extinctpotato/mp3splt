@@ -668,13 +668,15 @@ static void zoom_out(GSimpleAction *action, GVariant *parameter, gpointer data)
 void add_filters_to_file_chooser(GtkWidget *file_chooser)
 {
   GtkFileFilter *our_filter = gtk_file_filter_new();
-  gtk_file_filter_set_name(our_filter, _("mp3, ogg vorbis and flac files (*.mp3 *.ogg *.flac)"));
+  gtk_file_filter_set_name(our_filter, _("mp3, ogg vorbis, flac files and wav files (*.mp3 *.ogg *.flac, *wav)"));
   gtk_file_filter_add_pattern(our_filter, "*.mp3");
   gtk_file_filter_add_pattern(our_filter, "*.ogg");
   gtk_file_filter_add_pattern(our_filter, "*.flac");
+  gtk_file_filter_add_pattern(our_filter, "*.wav");
   gtk_file_filter_add_pattern(our_filter, "*.MP3");
   gtk_file_filter_add_pattern(our_filter, "*.OGG");
   gtk_file_filter_add_pattern(our_filter, "*.FLAC");
+  gtk_file_filter_add_pattern(our_filter, "*.WAV");
   gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), our_filter);
 
   our_filter = gtk_file_filter_new();
@@ -693,6 +695,12 @@ void add_filters_to_file_chooser(GtkWidget *file_chooser)
   gtk_file_filter_set_name (our_filter, _("flac files (*.flac)"));
   gtk_file_filter_add_pattern(our_filter, "*.flac");
   gtk_file_filter_add_pattern(our_filter, "*.FLAC");
+  gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), our_filter);
+
+  our_filter = gtk_file_filter_new();
+  gtk_file_filter_set_name (our_filter, _("wav files (*.wav)"));
+  gtk_file_filter_add_pattern(our_filter, "*.wav");
+  gtk_file_filter_add_pattern(our_filter, "*.WAV");
   gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), our_filter);
 }
 
